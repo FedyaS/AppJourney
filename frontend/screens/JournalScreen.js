@@ -96,6 +96,8 @@ const JournalScreen = () => {
 									onBlur={handleTextInputBlur}
 									autoFocus={true}
 									blurOnSubmit={false}
+									decelerationRate="fast"
+									keyboardDismissMode="interactive"
 								/>
 							</Animated.View>
 							<View style={styles.buttonContainer}>
