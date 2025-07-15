@@ -47,14 +47,14 @@ const JournalScreen = () => {
 				</TouchableOpacity>
 				<Text style={styles.title}>Journal Your Thoughts</Text>
 				<View style={styles.toggleContainer}>
-					<Text style={styles.toggleLabel}>Keyboard</Text>
+					<Text style={styles.toggleLabel}>Microphone</Text>
 					<Switch
 						trackColor={{ false: "#767577", true: theme.colors.primary }}
 						thumbColor={isKeyboardMode ? "#f4f3f4" : "#f4f3f4"}
 						onValueChange={() => setIsKeyboardMode(!isKeyboardMode)}
 						value={isKeyboardMode}
 					/>
-					<Text style={styles.toggleLabel}>Microphone</Text>
+					<Text style={styles.toggleLabel}>Keyboard</Text>
 				</View>
 				{isKeyboardMode ? (
 					<>
