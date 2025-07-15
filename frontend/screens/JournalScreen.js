@@ -10,7 +10,6 @@ import {
 	TouchableOpacity,
 	SafeAreaView,
 	KeyboardAvoidingView,
-	ScrollView,
 	Platform,
 	Animated,
 } from "react-native";
@@ -77,15 +76,13 @@ const JournalScreen = () => {
 					<Text style={styles.toggleLabel}>Keyboard</Text>
 				</View>
 				{isKeyboardMode ? (
-					<View style={styles.keyboardContainer}>
-						<Animated.View
-							style={[styles.textContainer, { opacity: fadeAnim }]}
-						>
-							<ScrollView
-								style={styles.textScrollView}
-								showsVerticalScrollIndicator={false}
-								keyboardShouldPersistTaps="handled"
-								contentContainerStyle={styles.scrollContentContainer}
+					<KeyboardAvoidingView
+						style={{ flex: 1 }}
+						behavior={Platform.OS === "ios" ? "padding" : "height"}
+					>
+						<View style={styles.keyboardContainer}>
+							<Animated.View
+								style={[styles.textInputContainer, { opacity: fadeAnim }]}
 							>
 								<TextInput
 									ref={inputRef}
@@ -96,29 +93,26 @@ const JournalScreen = () => {
 									placeholder="Pour your thoughts onto the page..."
 									placeholderTextColor={theme.colors.text + "60"}
 									textAlignVertical="top"
-									scrollEnabled={false}
-									maxLength={5000}
 									onBlur={handleTextInputBlur}
 									autoFocus={true}
 									blurOnSubmit={false}
 								/>
-							</ScrollView>
-						</Animated.View>
-						<View style={styles.buttonContainer}>
-							<TouchableOpacity
-								style={styles.saveButton}
-								onPress={() => navigation.goBack()}
-							>
-								<LinearGradient
-									colors={[theme.colors.primary, "#FF8C42"]}
-									style={styles.saveButtonGradient}
+							</Animated.View>
+							<View style={styles.buttonContainer}>
+								<TouchableOpacity
+									style={styles.saveButton}
+									onPress={() => navigation.goBack()}
 								>
-									<Text style={styles.saveButtonText}>Save Entry</Text>
-								</LinearGradient>
-							</TouchableOpacity>
+									<LinearGradient
+										colors={[theme.colors.primary, "#FF8C42"]}
+										style={styles.saveButtonGradient}
+									>
+										<Text style={styles.saveButtonText}>Save Entry</Text>
+									</LinearGradient>
+								</TouchableOpacity>
+							</View>
 						</View>
-						<View style={styles.keyboardSpacer} />
-					</View>
+					</KeyboardAvoidingView>
 				) : (
 					<View style={styles.micContainer}>
 						<Ionicons name="mic" size={100} color={theme.colors.primary} />
@@ -184,21 +178,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "space-between",
 	},
-	textContainer: {
+	textInputContainer: {
 		flex: 1,
-		paddingHorizontal: 2,
-		paddingTop: 5,
 		marginBottom: 10, // Space for button
 	},
-	textScrollView: {
-		flex: 1,
-	},
-	scrollContentContainer: {
-		flexGrow: 1,
-		paddingBottom: 60, // Extra space so text doesn't go under button
-	},
 	input: {
-		minHeight: 250,
+		flex: 1,
 		fontFamily: theme.fonts.main,
 		color: theme.colors.text,
 		fontSize: 20,
@@ -207,7 +192,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(255, 255, 255, 0.15)",
 		borderRadius: 12,
 		padding: 20,
-		marginHorizontal: 2,
 		textShadowColor: "rgba(0, 0, 0, 0.1)",
 		textShadowOffset: { width: 0, height: 1 },
 		textShadowRadius: 1,
@@ -215,12 +199,6 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		paddingHorizontal: 2,
 		paddingBottom: 10,
-		backgroundColor: "rgba(0, 0, 0, 0.1)", // Subtle background to separate from text
-		borderRadius: 8,
-		marginHorizontal: 2,
-	},
-	keyboardSpacer: {
-		height: 260, // Space for keyboard
 	},
 	saveButton: {
 		borderRadius: 12,
