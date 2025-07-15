@@ -77,7 +77,11 @@ const JournalScreen = () => {
 					<Text style={styles.toggleLabel}>Keyboard</Text>
 				</View>
 				{isKeyboardMode ? (
-					<View style={styles.keyboardContainer}>
+					<KeyboardAvoidingView
+						style={styles.keyboardAvoidingView}
+						behavior={Platform.OS === "ios" ? "padding" : "height"}
+						keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
+					>
 						<Animated.View
 							style={[styles.textContainer, { opacity: fadeAnim }]}
 						>
@@ -94,7 +98,7 @@ const JournalScreen = () => {
 									value={text}
 									onChangeText={setText}
 									placeholder="Pour your thoughts onto the page..."
-									placeholderTextColor={theme.colors.text + "60"}
+									placeholderTextColor={"#666666"}
 									textAlignVertical="top"
 									scrollEnabled={false}
 									maxLength={5000}
@@ -117,8 +121,7 @@ const JournalScreen = () => {
 								</LinearGradient>
 							</TouchableOpacity>
 						</View>
-						<View style={styles.keyboardSpacer} />
-					</View>
+					</KeyboardAvoidingView>
 				) : (
 					<View style={styles.micContainer}>
 						<Ionicons name="mic" size={100} color={theme.colors.primary} />
@@ -180,47 +183,37 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "600",
 	},
-	keyboardContainer: {
+	keyboardAvoidingView: {
 		flex: 1,
+		flexDirection: "column",
 		justifyContent: "space-between",
 	},
 	textContainer: {
 		flex: 1,
-		paddingHorizontal: 2,
 		paddingTop: 5,
-		marginBottom: 10, // Space for button
 	},
 	textScrollView: {
 		flex: 1,
 	},
 	scrollContentContainer: {
 		flexGrow: 1,
-		paddingBottom: 60, // Extra space so text doesn't go under button
+		paddingBottom: 20,
 	},
 	input: {
 		minHeight: 250,
 		fontFamily: theme.fonts.main,
-		color: theme.colors.text,
+		color: "#000000",
 		fontSize: 20,
 		lineHeight: 32,
 		textAlignVertical: "top",
-		backgroundColor: "rgba(255, 255, 255, 0.15)",
+		backgroundColor: "rgba(255, 255, 255, 0.8)",
 		borderRadius: 12,
 		padding: 20,
-		marginHorizontal: 2,
-		textShadowColor: "rgba(0, 0, 0, 0.1)",
-		textShadowOffset: { width: 0, height: 1 },
-		textShadowRadius: 1,
 	},
 	buttonContainer: {
-		paddingHorizontal: 2,
+		paddingHorizontal: 20,
 		paddingBottom: 10,
-		backgroundColor: "rgba(0, 0, 0, 0.1)", // Subtle background to separate from text
-		borderRadius: 8,
-		marginHorizontal: 2,
-	},
-	keyboardSpacer: {
-		height: 260, // Space for keyboard
+		backgroundColor: "transparent",
 	},
 	saveButton: {
 		borderRadius: 12,
