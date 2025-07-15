@@ -8,6 +8,7 @@ import {
 	Switch,
 	StyleSheet,
 	TouchableOpacity,
+	SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../styles/theme";
@@ -38,7 +39,7 @@ const JournalScreen = () => {
 				colors={["rgba(0,0,0,0.5)", "transparent"]}
 				style={styles.gradient}
 			/>
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<TouchableOpacity
 					onPress={() => navigation.goBack()}
 					style={styles.backButton}
@@ -79,7 +80,7 @@ const JournalScreen = () => {
 						<Text style={styles.comingSoon}>COMING SOON</Text>
 					</View>
 				)}
-			</View>
+			</SafeAreaView>
 		</ImageBackground>
 	);
 };
@@ -98,12 +99,15 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 20,
-		justifyContent: "center",
+		paddingTop: 50,
 	},
 	backButton: {
 		position: "absolute",
-		top: 40,
+		top: 50,
 		left: 20,
+		zIndex: 1,
+		backgroundColor: "transparent",
+		padding: 10,
 	},
 	title: {
 		fontSize: 28,

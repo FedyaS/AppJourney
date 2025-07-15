@@ -26,7 +26,7 @@ export default function App() {
 		<NavigationContainer>
 			<View style={styles.container} onLayout={onLayoutRootView}>
 				<AppNavigator />
-				<StatusBar style="auto" />
+				<StatusBar style="light" translucent={true} />
 			</View>
 		</NavigationContainer>
 	);

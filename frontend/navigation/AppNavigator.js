@@ -7,17 +7,14 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
 	return (
-		<Stack.Navigator initialRouteName="Home">
-			<Stack.Screen
-				name="Home"
-				component={HomeScreen}
-				options={{ title: "Home" }}
-			/>
-			<Stack.Screen
-				name="JournalScreen"
-				component={JournalScreen}
-				options={{ title: "Journal" }}
-			/>
+		<Stack.Navigator
+			initialRouteName="Home"
+			screenOptions={{
+				headerShown: false,
+			}}
+		>
+			<Stack.Screen name="Home" component={HomeScreen} />
+			<Stack.Screen name="JournalScreen" component={JournalScreen} />
 		</Stack.Navigator>
 	);
 };
