@@ -12,7 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../styles/theme";
 import { Ionicons } from "@expo/vector-icons";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 
 const journalBackground = require("../assets/images/journal_background.jpg");
 

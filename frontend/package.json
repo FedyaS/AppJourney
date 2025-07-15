@@ -15,10 +15,12 @@
 		"@react-navigation/stack": "6.3.29",
 		"expo": "^53.0.19",
 		"expo-font": "~13.3.2",
+		"expo-linear-gradient": "~14.1.0",
 		"expo-splash-screen": "~0.30.10",
 		"expo-status-bar": "~2.2.3",
 		"react": "19.0.0",
 		"react-native": "0.79.5",
+		"react-native-gesture-handler": "2.24.0",
 		"react-native-linear-gradient": "2.8.3",
 		"react-native-safe-area-context": "5.4.0",
 		"react-native-screens": "~4.11.1"
