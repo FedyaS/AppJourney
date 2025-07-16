@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
 	View,
 	Text,
@@ -17,11 +17,13 @@ import { useNavigation } from "@react-navigation/native";
 import { theme } from "../styles/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { JournalContext } from "../context/JournalContext";
 
 const journalBackground = require("../assets/images/journal_background.jpg");
 
 const JournalScreen = () => {
 	const navigation = useNavigation();
+	const { addEntry } = useContext(JournalContext);
 	const [isKeyboardMode, setIsKeyboardMode] = useState(true);
 	const [text, setText] = useState("");
 	const inputRef = useRef(null);
@@ -44,6 +46,13 @@ const JournalScreen = () => {
 		// Prevent keyboard from dismissing in keyboard mode
 		if (isKeyboardMode && inputRef.current) {
 			inputRef.current.focus();
+		}
+	};
+
+	const handleSave = () => {
+		if (text.trim()) {
+			addEntry(text);
+			navigation.replace("JournalEntriesScreen");
 		}
 	};
 
@@ -90,8 +99,8 @@ const JournalScreen = () => {
 									multiline
 									value={text}
 									onChangeText={setText}
-									placeholder="Pour your thoughts onto the page..."
-									placeholderTextColor={theme.colors.text + "60"}
+									placeholder="Type your thoughts here..."
+									placeholderTextColor={theme.colors.text + "80"}
 									textAlignVertical="top"
 									onBlur={handleTextInputBlur}
 									autoFocus={true}
@@ -103,7 +112,7 @@ const JournalScreen = () => {
 							<View style={styles.buttonContainer}>
 								<TouchableOpacity
 									style={styles.saveButton}
-									onPress={() => navigation.goBack()}
+									onPress={handleSave}
 								>
 									<LinearGradient
 										colors={[theme.colors.primary, "#FF8C42"]}
