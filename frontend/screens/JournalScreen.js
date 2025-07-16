@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
 	View,
 	Text,
@@ -17,11 +17,14 @@ import { useNavigation } from "@react-navigation/native";
 import { theme } from "../styles/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { JournalContext } from "../context/JournalContext";
+import ScreenHeader from "../components/ScreenHeader";
 
 const journalBackground = require("../assets/images/journal_background.jpg");
 
 const JournalScreen = () => {
 	const navigation = useNavigation();
+	const { addEntry } = useContext(JournalContext);
 	const [isKeyboardMode, setIsKeyboardMode] = useState(true);
 	const [text, setText] = useState("");
 	const inputRef = useRef(null);
@@ -47,6 +50,13 @@ const JournalScreen = () => {
 		}
 	};
 
+	const handleSave = () => {
+		if (text.trim()) {
+			addEntry(text);
+			navigation.replace("JournalEntriesScreen");
+		}
+	};
+
 	return (
 		<ImageBackground
 			source={journalBackground}
@@ -58,13 +68,7 @@ const JournalScreen = () => {
 				style={styles.gradient}
 			/>
 			<SafeAreaView style={styles.container}>
-				<TouchableOpacity
-					onPress={() => navigation.goBack()}
-					style={styles.backButton}
-				>
-					<Ionicons name="arrow-back" size={30} color={theme.colors.text} />
-				</TouchableOpacity>
-				<Text style={styles.title}>Journal Your Thoughts</Text>
+				<ScreenHeader title="Write Anything" />
 				<View style={styles.toggleContainer}>
 					<Text style={styles.toggleLabel}>Microphone</Text>
 					<Switch
@@ -90,8 +94,8 @@ const JournalScreen = () => {
 									multiline
 									value={text}
 									onChangeText={setText}
-									placeholder="Pour your thoughts onto the page..."
-									placeholderTextColor={theme.colors.text + "60"}
+									placeholder="Type your thoughts here..."
+									placeholderTextColor={theme.colors.text + "80"}
 									textAlignVertical="top"
 									onBlur={handleTextInputBlur}
 									autoFocus={true}
@@ -103,7 +107,7 @@ const JournalScreen = () => {
 							<View style={styles.buttonContainer}>
 								<TouchableOpacity
 									style={styles.saveButton}
-									onPress={() => navigation.goBack()}
+									onPress={handleSave}
 								>
 									<LinearGradient
 										colors={[theme.colors.primary, "#FF8C42"]}
@@ -139,32 +143,15 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		padding: 20,
 		paddingTop: 50,
-	},
-	backButton: {
-		position: "absolute",
-		top: 50,
-		left: 20,
-		zIndex: 1,
-		backgroundColor: "transparent",
-		padding: 10,
-	},
-	title: {
-		fontSize: 28,
-		fontFamily: theme.fonts.main,
-		color: theme.colors.text,
-		textAlign: "center",
-		marginBottom: 20,
-		textShadowColor: "rgba(0, 0, 0, 0.3)",
-		textShadowOffset: { width: 1, height: 1 },
-		textShadowRadius: 2,
 	},
 	toggleContainer: {
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
+		marginTop: 15,
 		marginBottom: 30,
+		marginHorizontal: 20,
 		backgroundColor: "rgba(255, 255, 255, 0.1)",
 		borderRadius: 25,
 		padding: 15,
@@ -179,6 +166,7 @@ const styles = StyleSheet.create({
 	keyboardContainer: {
 		flex: 1,
 		justifyContent: "space-between",
+		marginHorizontal: 20,
 	},
 	textInputContainer: {
 		flex: 1,
@@ -233,6 +221,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
+		marginHorizontal: 20,
 	},
 	comingSoon: {
 		fontSize: 24,

@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./navigation/AppNavigator";
+import { JournalProvider } from "./context/JournalContext";
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -24,10 +25,12 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<View style={styles.container} onLayout={onLayoutRootView}>
-				<AppNavigator />
-				<StatusBar style="light" translucent={true} />
-			</View>
+			<JournalProvider>
+				<View style={styles.container} onLayout={onLayoutRootView}>
+					<AppNavigator />
+					<StatusBar style="light" translucent={true} />
+				</View>
+			</JournalProvider>
 		</NavigationContainer>
 	);
 }

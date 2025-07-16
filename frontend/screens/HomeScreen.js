@@ -15,6 +15,12 @@ const HomeScreen = () => {
 				color={theme.colors.primary}
 				onPress={() => navigation.navigate("JournalScreen")}
 			/>
+			<View style={styles.buttonSpacer} />
+			<Button
+				title="See Journal Entries"
+				color={theme.colors.primary}
+				onPress={() => navigation.navigate("JournalEntriesScreen")}
+			/>
 		</View>
 	);
 };
@@ -37,6 +43,9 @@ const styles = StyleSheet.create({
 		fontFamily: theme.fonts.main,
 		color: theme.colors.text,
 		marginBottom: 20,
+	},
+	buttonSpacer: {
+		height: 10,
 	},
 });
 
