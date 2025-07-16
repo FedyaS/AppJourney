@@ -73,7 +73,7 @@ const JournalScreen = () => {
 				>
 					<Ionicons name="arrow-back" size={30} color={theme.colors.text} />
 				</TouchableOpacity>
-				<Text style={styles.title}>Journal Your Thoughts</Text>
+				<Text style={styles.title}>Write Anything</Text>
 				<View style={styles.toggleContainer}>
 					<Text style={styles.toggleLabel}>Microphone</Text>
 					<Switch

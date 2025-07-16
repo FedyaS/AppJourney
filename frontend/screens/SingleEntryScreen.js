@@ -1,23 +1,14 @@
 import React, { useContext } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	SafeAreaView,
-	TouchableOpacity,
-	ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { JournalContext } from "../context/JournalContext";
 import { theme } from "../styles/theme";
 import { format } from "date-fns";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import ScreenHeader from "../components/ScreenHeader";
 
 const SingleEntryScreen = ({ route }) => {
 	const { entries } = useContext(JournalContext);
 	const { entryId } = route.params;
 	const entry = entries.find((e) => e.id === entryId);
-	const navigation = useNavigation();
 
 	if (!entry) {
 		return (
@@ -29,13 +20,8 @@ const SingleEntryScreen = ({ route }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity
-				onPress={() => navigation.goBack()}
-				style={styles.backButton}
-			>
-				<Ionicons name="arrow-back" size={30} color={theme.colors.text} />
-			</TouchableOpacity>
-			<ScrollView>
+			<ScreenHeader title="" />
+			<ScrollView contentContainerStyle={styles.scrollContent}>
 				<Text style={styles.date}>
 					{format(new Date(entry.datetime), "MMMM do, yyyy 'at' h:mm a")}
 				</Text>
@@ -49,16 +35,11 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: theme.colors.background,
-		padding: 20,
 		paddingTop: 50,
 	},
-	backButton: {
-		position: "absolute",
-		top: 50,
-		left: 20,
-		zIndex: 1,
-		backgroundColor: "transparent",
-		padding: 10,
+	scrollContent: {
+		paddingTop: 20,
+		paddingHorizontal: 20,
 	},
 	date: {
 		fontSize: 18,
