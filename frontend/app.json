@@ -14,7 +14,7 @@
 		},
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.moncattechnologies.mindheartjournal"}
+			"bundleIdentifier": "com.moncattechnologies.mindheartjournal"
 		},
 		"android": {
 			"adaptiveIcon": {
